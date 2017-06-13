@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Automation2010_xp_release/Automation2010/bin
+/Automation2010_xp_release/Automation2010/obj/x86
