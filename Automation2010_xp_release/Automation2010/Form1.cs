@@ -15,14 +15,21 @@ using System.Threading.Tasks;
 using ICSharpCode.SharpZipLib.Tar;
 using HtmlAgilityPack;
 
+using Rpi;
+
 namespace Automation2010
 {
     public partial class Form1 : Form
     {
+        private const int DefaultServerPort = 6400;
+        private const int DefaultClientPort = 6401;
+
         Random rnd = new Random();
         public string ip = "0";
         public List<Order> orders = new List<Order>();
+        //public OldServer server;
         public Server server;
+        public Client client;
         public int nextID; // Текущий, последний ID 
         private Sorter columnSorter; // Сортировочки
         public bool ifupdate = false;
@@ -32,6 +39,7 @@ namespace Automation2010
         public Form1()
         {
             InitializeComponent();
+            Logger.CreateLogFile();
             CreateListViews();
             //CreateLog();
             CreateLog();
@@ -42,9 +50,80 @@ namespace Automation2010
             this.listFirst.ListViewItemSorter = columnSorter;
             this.listSecond.ListViewItemSorter = columnSorter;
             //setTimer(true); // delete this
-            server = new Server(22800, this);
+            client = new Client(6400);
+            server = new Server(6400, ClientProc);
+            server.Start();
+        }
+                
+        private void btn_connect_Click(object sender, EventArgs e)
+        {
+            Connect();
         }
 
+        private void textIP_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                Connect();
+                e.Handled = true;
+            }
+
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back || textIP.Text.ToString().Length > 2 && e.KeyChar != (char)Keys.Back)
+                e.Handled = true;
+
+        }
+
+
+        public void Connect()
+        {
+            ip = textIP.Text;
+            if (textIP.Text == "") ip = "0";
+            server.AddDevice("192.168.0." + textIP.Text, DefaultClientPort); //"192.168.137." 127.0.0.1;
+        }
+
+        public byte[] ClientProc(int id, MessageType msg, object[] parameters)
+        {
+            switch (msg)
+            {
+                case MessageType.None:
+                    return Encoding.UTF8.GetBytes("HUI\n");
+                case MessageType.Ack:
+                    int id1 = Int32.Parse(parameters[1] as string);
+                    // Читаем ответ от пишки
+                    orders[id1 - nextID + 1].status = 3;
+                    ifupdate = true;
+                    break;
+                case MessageType.RequestIds:
+                    bool flag = false;
+                    StringBuilder sb = new StringBuilder();
+                    if (parameters[1] as string == "1")
+                        foreach (Order order in orders)
+                        {
+                            if (order.machine == "ближний" && order.status == 1)
+                            {
+                                sb.Append(order.id.ToString() + "$");
+                                flag = true;
+                            }
+                        }
+                    else foreach (Order order in orders)
+                            if (order.machine == "дальний" && order.status == 1)
+                            {
+                                sb.Append(order.id.ToString() + "$");
+                                flag = true;
+                            }
+                    if (flag) return Encoding.UTF8.GetBytes(sb.ToString() + "\n");
+                    break;
+                case MessageType.RequestData:
+                    string FilePath = parameters[1] as string;
+                    return File.ReadAllBytes(FilePath);
+                default:
+                    return Encoding.UTF8.GetBytes("Error\n");
+            }
+
+            return Encoding.ASCII.GetBytes("ack\n");
+        }
+
+        //
         private string[] ShowDialog(string name)
         {
             string[] info = new string[3];
@@ -421,18 +500,6 @@ namespace Automation2010
             }
         }
 
-        private void btn_connect_Click(object sender, EventArgs e)
-        {
-            Connect();
-        }
-
-        public void Connect()
-        {
-            ip = textIP.Text;
-            if (textIP.Text == "") ip = "0";
-            server.Connection();
-        }
-
         private void listFirst_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (orders.Count > 0)
@@ -590,19 +657,6 @@ namespace Automation2010
             }
         }
 
-        private void textIP_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                Connect();
-                e.Handled = true;
-            }
-
-            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back || textIP.Text.ToString().Length > 2 && e.KeyChar != (char)Keys.Back)
-                e.Handled = true;
-
-        }
-
         private void listAll_SelectedIndexChanged(object sender, EventArgs e)
         {
             curId = -1;
@@ -611,6 +665,7 @@ namespace Automation2010
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             WriteLog();
+            server.Stop();
         }
 
         private void button1_Click(object sender, EventArgs e)

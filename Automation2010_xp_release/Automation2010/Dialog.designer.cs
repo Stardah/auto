@@ -1,4 +1,4 @@
-﻿namespace Automation2010
+﻿namespace Rpi
 {
     partial class Dialog
     {

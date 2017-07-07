@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Automation2010.Properties {
+namespace Rpi.Properties {
     using System;
     
     

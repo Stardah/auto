@@ -10,9 +10,9 @@ using System.IO;
 namespace Automation2010
 {
 
-    public class Client
+    public class OldClient
     {
-        public Client(TcpClient client, Form1 form)
+        public OldClient(TcpClient client, Form1 form)
         {
             var remoteEP = (client.Client.RemoteEndPoint as IPEndPoint);
             remoteEP.Port = 22801; /// ToDo: надо фильтровать по порту, я думаю       

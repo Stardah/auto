@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Automation2010
 {
     // Сервер, получающий данные, вызывающий клиенты - обработчики
-    public class Server
+    public class OldServer
     {
 
         string output = "";
@@ -21,7 +21,7 @@ namespace Automation2010
         TcpListener Listener = null; // Объект, принимающий TCP-клиентов
 
         // Запуск сервера
-        public Server(int Port, Form1 form)
+        public OldServer(int Port, Form1 form)
         {
             this.form = form;
             IPAddress ipAddress = Dns.GetHostEntry("localhost").AddressList[0];
@@ -51,38 +51,6 @@ namespace Automation2010
                     Delay(5000);
                 }
             });
-            
-
-            /*Task.Factory.StartNew(() =>
-            {
-                while (true)
-                {
-                    // Принимаем новых клиентов
-                    TcpClient Client = Listener.AcceptTcpClient();
-                    // Создаем поток
-                    Thread Thread = new Thread(new ParameterizedThreadStart(ClientThread));
-                    // И запускаем этот поток, передавая ему принятого клиента
-                    Thread.Start(Client);
-
-                    TaskEx.Delay(5000);
-                }
-            });
-            */
-            /*Task.Run(async () =>
-            {
-                while (true)
-                {
-                    // Принимаем новых клиентов
-                    TcpClient Client = Listener.AcceptTcpClient();
-                    // Создаем поток
-                    Thread Thread = new Thread(new ParameterizedThreadStart(ClientThread));
-                    // И запускаем этот поток, передавая ему принятого клиента
-                    Thread.Start(Client);
-
-                    await Task.Delay(5000);
-                }
-            });*/
-
         }
 
         public static Task Delay(double milliseconds)
@@ -176,7 +144,7 @@ namespace Automation2010
         }
 
         // Остановка сервера
-        ~Server()
+        ~OldServer()
         {
             // Если "слушатель" был создан
             if (Listener != null)
@@ -188,7 +156,7 @@ namespace Automation2010
 
         public void ClientThread(Object StateInfo)
         {
-            new Client((TcpClient)StateInfo, form);
+            new OldClient((TcpClient)StateInfo, form);
         }
 
     }
