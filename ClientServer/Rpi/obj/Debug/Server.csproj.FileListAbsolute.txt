@@ -1,0 +1,2 @@
+C:\Users\Adrax\Source\Repos\automation\Rpi\bin\Debug\Server.exe.config
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Rpi\bin\Debug\Server.exe.config
