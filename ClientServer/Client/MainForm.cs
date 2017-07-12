@@ -69,6 +69,8 @@ namespace Rpi
                             ProcessData(m_client.PullBytes());
                         }
                     }
+
+                    WriteToDrive();
                 }
             });
 
@@ -92,6 +94,19 @@ namespace Rpi
             {
                 connectionLabel.Text = "Нет соединения";
                 connectionLabel.ForeColor = Color.Red;
+            }
+
+            if (m_orders.Count == 0)
+            {
+                writtenLabel.Text = "УП отсутствуют";
+            }
+            else if (m_orders[0].Written)
+            {
+                writtenLabel.Text = "Программа записана";
+            }
+            else
+            {
+                writtenLabel.Text = "Ожидание USB-носителя...";
             }
 
             currentLabel.Text =
@@ -120,7 +135,7 @@ namespace Rpi
 
         private void WriteToDrive()
         {
-            if (m_orders.Count > 0)
+            if (m_orders.Count > 0 && m_orders[0].Prog != null)
             {
                 m_orders[0].Written =
 #if WINDOWS

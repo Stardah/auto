@@ -34,6 +34,7 @@
             this.nextLabel = new System.Windows.Forms.Label();
             this.connectionLabel = new System.Windows.Forms.Label();
             this.currentLabel = new System.Windows.Forms.Label();
+            this.writtenLabel = new System.Windows.Forms.Label();
             this.gridDetails.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,13 +48,15 @@
             // 
             this.gridDetails.ColumnCount = 1;
             this.gridDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.gridDetails.Controls.Add(this.nextLabel, 0, 2);
+            this.gridDetails.Controls.Add(this.nextLabel, 0, 3);
             this.gridDetails.Controls.Add(this.connectionLabel, 0, 0);
-            this.gridDetails.Controls.Add(this.currentLabel, 0, 1);
+            this.gridDetails.Controls.Add(this.currentLabel, 0, 2);
+            this.gridDetails.Controls.Add(this.writtenLabel, 0, 1);
             this.gridDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridDetails.Location = new System.Drawing.Point(0, 0);
             this.gridDetails.Name = "gridDetails";
-            this.gridDetails.RowCount = 3;
+            this.gridDetails.RowCount = 4;
+            this.gridDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.gridDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.gridDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.gridDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -64,7 +67,7 @@
             // 
             this.nextLabel.AutoSize = true;
             this.nextLabel.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.nextLabel.Location = new System.Drawing.Point(3, 184);
+            this.nextLabel.Location = new System.Drawing.Point(3, 200);
             this.nextLabel.Name = "nextLabel";
             this.nextLabel.Size = new System.Drawing.Size(289, 32);
             this.nextLabel.TabIndex = 2;
@@ -85,11 +88,21 @@
             // 
             this.currentLabel.AutoSize = true;
             this.currentLabel.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.currentLabel.Location = new System.Drawing.Point(3, 32);
+            this.currentLabel.Location = new System.Drawing.Point(3, 64);
             this.currentLabel.Name = "currentLabel";
             this.currentLabel.Size = new System.Drawing.Size(236, 32);
             this.currentLabel.TabIndex = 1;
             this.currentLabel.Text = "Текущий заказ:";
+            // 
+            // writtenLabel
+            // 
+            this.writtenLabel.AutoSize = true;
+            this.writtenLabel.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.writtenLabel.Location = new System.Drawing.Point(3, 32);
+            this.writtenLabel.Name = "writtenLabel";
+            this.writtenLabel.Size = new System.Drawing.Size(229, 32);
+            this.writtenLabel.TabIndex = 3;
+            this.writtenLabel.Text = "УП отсутствуют";
             // 
             // Form1
             // 
@@ -117,6 +130,7 @@
         private System.Windows.Forms.Label nextLabel;
         private System.Windows.Forms.Label connectionLabel;
         private System.Windows.Forms.Label currentLabel;
+        private System.Windows.Forms.Label writtenLabel;
     }
 }
 

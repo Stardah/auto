@@ -15,6 +15,7 @@ namespace Rpi
             Gas = GasType.None;
             Notes = "Заказ по умолчанию.";
             Written = false;
+            Prog = null;
         }
 
         public Order(
