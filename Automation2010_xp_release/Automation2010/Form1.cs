@@ -29,7 +29,7 @@ namespace Automation2010
         public List<Order> orders = new List<Order>();
         //public OldServer server;
         public Server server;
-        public Client client;
+        // public Client client;
         public int nextID; // Текущий, последний ID 
         private Sorter columnSorter; // Сортировочки
         public bool ifupdate = false;
@@ -39,6 +39,7 @@ namespace Automation2010
         public Form1()
         {
             InitializeComponent();
+
             Logger.CreateLogFile();
             CreateListViews();
             //CreateLog();
@@ -49,8 +50,8 @@ namespace Automation2010
             this.listDone.ListViewItemSorter = columnSorter;
             this.listFirst.ListViewItemSorter = columnSorter;
             this.listSecond.ListViewItemSorter = columnSorter;
-            //setTimer(true); // delete this
-            client = new Client(6400);
+            // setTimer(true); // delete this
+            // client = new Client(6400);
             server = new Server(6400, ClientProc);
             server.Start();
         }
@@ -87,12 +88,14 @@ namespace Automation2010
             {
                 case MessageType.None:
                     return Encoding.UTF8.GetBytes("HUI\n");
+
                 case MessageType.Ack:
                     int id1 = Int32.Parse(parameters[1] as string);
                     // Читаем ответ от пишки
                     orders[id1 - nextID + 1].status = 3;
                     ifupdate = true;
                     break;
+
                 case MessageType.RequestIds:
                     bool flag = false;
                     StringBuilder sb = new StringBuilder();
@@ -113,9 +116,11 @@ namespace Automation2010
                             }
                     if (flag) return Encoding.UTF8.GetBytes(sb.ToString() + "\n");
                     break;
+
                 case MessageType.RequestData:
                     string FilePath = parameters[1] as string;
                     return File.ReadAllBytes(FilePath);
+
                 default:
                     return Encoding.UTF8.GetBytes("Error\n");
             }

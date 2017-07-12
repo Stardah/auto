@@ -11,3 +11,16 @@ c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\obj\Debug
 c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\obj\Debug\Client.pdb
 C:\Users\Максим\Documents\Visual Studio 2015\Projects\Rpi\Client\bin\Debug\Server.exe.config
 C:\Users\Максим\Documents\Visual Studio 2015\Projects\Rpi\Client\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\bin\Debug\Client.exe.config
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\bin\Debug\Client.exe
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\bin\Debug\Client.pdb
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\bin\Debug\Server.exe
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\bin\Debug\Server.pdb
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\bin\Debug\Server.exe.config
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\obj\Debug\Rpi.Form1.resources
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\obj\Debug\Rpi.Properties.Resources.resources
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\obj\Debug\Client.csproj.GenerateResource.Cache
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\obj\Debug\Client.exe
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Client\obj\Debug\Client.pdb
