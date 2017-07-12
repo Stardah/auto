@@ -20,7 +20,7 @@ namespace Rpi
     {
         private const int DefaultServerPort = 6400;
         private const int DefaultClientPort = 6401;
-        private const int Cooldown = 500;
+        private const int Cooldown = 1000;
 #if WINDOWS
         public const string TemporaryPrefix = @"temp";
 #else
@@ -36,6 +36,7 @@ namespace Rpi
         public Form1()
         {
             InitializeComponent();
+            Logger.CreateLogFile();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -54,7 +55,7 @@ namespace Rpi
                         Thread.Sleep(Cooldown);
                         continue;
                     }
-
+                    
                     var ids = (
                         from v
                         in m_client.SendString(MessageType.RequestIds).Split(' ', '$')
