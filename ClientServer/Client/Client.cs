@@ -152,7 +152,7 @@ namespace Rpi
                 try
                 {
                     ip = new IPAddress(127 | 0 | 0 | 1 << 24);
-                    server = new TcpListener(ip, port);
+                    server = new TcpListener(IPAddress.Any, port);
                     server.Start();
                     Logger.WriteLine(this, "Начато ожидание сервера");
 
@@ -250,16 +250,13 @@ namespace Rpi
         }
 
         private const int PendingCooldown = 500;
-        private const int DefaultSendTimeout = 10000 * 10;
-        private const int DefaultReceiveTimeout = 10000 * 10;
+        private const int DefaultSendTimeout = 10000;
+        private const int DefaultReceiveTimeout = 10000;
 
         /// <summary>
         /// Истина, если предыдущее сообщение было доставлено успешно.
         /// </summary>
         public bool Connected { get { return m_client != null; } }
-
-        /// ToDo: пофиксить это дело
-        // public ConnectionState Connection { get { return ConnectionState.NotConnected; } }
 
         /// <summary>
         /// Адрес сервера.

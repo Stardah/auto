@@ -1,0 +1,2 @@
+c:\users\максим\documents\visual studio 2015\Projects\Rpi\Rpi\bin\Debug\Rpi.exe.config
+c:\users\максим\documents\visual studio 2015\Projects\Rpi\Rpi\bin\Debug\Server.exe.config
