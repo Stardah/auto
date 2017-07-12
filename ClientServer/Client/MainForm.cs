@@ -94,7 +94,7 @@ namespace Rpi
                 connectionLabel.ForeColor = Color.Red;
             }
 
-            currentLabel.Text = 
+            currentLabel.Text =
                 "Текущий заказ:\n\r" + m_orders.FirstOrDefault()?.ToString();
             nextLabel.Text =
                 "Следующий заказ:\n\r" + m_orders.Skip(1).FirstOrDefault()?.ToString();
@@ -116,6 +116,87 @@ namespace Rpi
                     m_orders.RemoveAt(0);
                 }
             }
+        }
+
+        private void WriteToDrive()
+        {
+            if (m_orders.Count > 0)
+            {
+                m_orders[0].Written =
+#if WINDOWS
+                WriteToDriveWindows();
+#else
+                WriteToDriveLinux();
+#endif
+            }
+        }
+
+        private bool WriteToDriveWindows()
+        {
+            foreach (DriveInfo drive in DriveInfo.GetDrives())
+            {
+                if (drive.DriveType == DriveType.Removable)
+                    try
+                    {
+                        if (!m_orders[0].Written)
+                        {
+                            using (FileStream fs = new FileStream(drive.RootDirectory.FullName + "/PROG.LST", FileMode.OpenOrCreate))
+                            {
+                                byte[] data = m_orders[0].Prog;
+                                fs.Write(data, 0, data.Length);
+                                Logger.WriteLine(this, "Written the file.");
+                            }
+                        }
+                        return true;
+                    }
+                    catch (IOException e)
+                    {
+                        Logger.WriteLine(this, e.Message);
+                    }
+                else
+                    Logger.WriteLine(
+                        this,
+                        "{0}, type::{1} is not an USB stick.",
+                        drive.RootDirectory.FullName/*,
+                        drive.DriveType.Description()*/
+                    );
+            }
+
+            return false;
+        }
+
+        private bool WriteToDriveLinux()
+        {
+            DriveInfo[] drives = DriveInfo.GetDrives();
+            DriveInfo drive = drives[drives.Length - 1];
+
+            if (drive.DriveType == DriveType.Fixed)
+                try
+                {
+                    if (!m_orders[0].Written)
+                    {
+                        using (FileStream fs = new FileStream(drive.RootDirectory.FullName + "/PROG.LST", FileMode.OpenOrCreate))
+                        {
+                            byte[] data = m_orders[0].Prog;
+                            fs.Write(data, 0, data.Length);
+                            Logger.WriteLine(this, "Written the file.");
+                        }
+                    }
+                    return true;
+                }
+                catch (IOException e)
+                {
+                    Logger.WriteLine(this, e.Message);
+                }
+            else
+                Logger.WriteLine(
+                    this,
+                    "{0}, type::{1} is not an USB stick.",
+                    drive.RootDirectory.FullName/*,
+                    drive.DriveType.Description()*/
+                );
+
+            return false;
         }
 
         private void ProcessData(byte[] tarGz)
