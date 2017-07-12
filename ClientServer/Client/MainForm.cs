@@ -41,6 +41,17 @@ namespace Rpi
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // Очистка временных директорий.
+            string name;
+            int i = 0;
+
+            var cur = Directory.GetCurrentDirectory();
+
+            while (Directory.Exists(name = (TemporaryPrefix + i++.ToString())))
+            {
+                Directory.Delete(name, true);
+            }
+
             m_client = new Client(DefaultClientPort);
             m_client.Start();
 
@@ -55,10 +66,15 @@ namespace Rpi
                         Thread.Sleep(Cooldown);
                         continue;
                     }
-                    
+
+                    var req = m_client.SendString(MessageType.RequestIds);
+
+                    if (req == null)
+                        continue;
+
                     var ids = (
                         from v
-                        in m_client.SendString(MessageType.RequestIds).Split(' ', '$')
+                        in req.Split(' ', '$')
                         where v.Length > 0
                         select v
                         ).ToArray();
@@ -161,7 +177,7 @@ namespace Rpi
                 if (drive.DriveType == DriveType.Removable)
                     try
                     {
-                        if (!m_orders[0].Written)
+                        if (m_orders.Count > 0 && !m_orders[0].Written)
                         {
                             using (FileStream fs = new FileStream(drive.RootDirectory.FullName + "/PROG.LST", FileMode.OpenOrCreate))
                             {
@@ -179,7 +195,7 @@ namespace Rpi
                 else
                     Logger.WriteLine(
                         this,
-                        "{0}, type::{1} is not an USB stick.",
+                        "{0}, is not an USB stick.", // "{0}, type::{1} is not an USB stick.",
                         drive.RootDirectory.FullName/*,
                         drive.DriveType.Description()*/
                     );
@@ -196,7 +212,7 @@ namespace Rpi
             if (drive.DriveType == DriveType.Fixed)
                 try
                 {
-                    if (!m_orders[0].Written)
+                    if (m_orders.Count > 0 && !m_orders[0].Written)
                     {
                         using (FileStream fs = new FileStream(drive.RootDirectory.FullName + "/PROG.LST", FileMode.OpenOrCreate))
                         {
@@ -214,7 +230,7 @@ namespace Rpi
             else
                 Logger.WriteLine(
                     this,
-                    "{0}, type::{1} is not an USB stick.",
+                        "{0}, is not an USB stick.", // "{0}, type::{1} is not an USB stick.",
                     drive.RootDirectory.FullName/*,
                     drive.DriveType.Description()*/
                 );

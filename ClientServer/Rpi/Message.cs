@@ -39,6 +39,9 @@ namespace Rpi
 
         public static MessageType GetMessageType(string msg)
         {
+            if (msg == null)
+                return MessageType.None;
+
             msg = msg.ToLower();
             if (messageInv.ContainsKey(msg))
                 return messageInv[msg];

@@ -41,6 +41,14 @@ namespace Rpi
             }
         }
 
+        public static string GetSetting(string key)
+        {
+            if (m_settings.ContainsKey(key))
+                return m_settings[key];
+            else
+                return "";
+        }
+
         private static Dictionary<string, string> m_settings = new Dictionary<string, string>();
     }
 }
