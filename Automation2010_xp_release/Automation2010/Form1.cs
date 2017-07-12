@@ -87,10 +87,10 @@ namespace Automation2010
             {
                 case MessageType.None:
                     return Encoding.UTF8.GetBytes("HUI\n");
-                case MessageType.Ack:
+                case MessageType.Finish:
                     int id1 = Int32.Parse(parameters[1] as string);
                     // Читаем ответ от пишки
-                    orders[id1 - nextID + 1].status = 3;
+                    orders[id1].status = 3;
                     ifupdate = true;
                     break;
                 case MessageType.RequestIds:
@@ -120,7 +120,7 @@ namespace Automation2010
                     return Encoding.UTF8.GetBytes("Error\n");
             }
 
-            return Encoding.ASCII.GetBytes("ack\n");
+            return Encoding.ASCII.GetBytes("NiHuYa\n");
         }
 
         //
