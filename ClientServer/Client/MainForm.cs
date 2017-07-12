@@ -1,6 +1,4 @@
-﻿#define WINDOWS
-
-using ICSharpCode.SharpZipLib.Tar;
+﻿using ICSharpCode.SharpZipLib.Tar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,7 +19,7 @@ namespace Rpi
         private const int DefaultServerPort = 6400;
         private const int DefaultClientPort = 6401;
         private const int Cooldown = 1000;
-#if WINDOWS
+#if DEBUG
         public const string TemporaryPrefix = @"temp";
 #else
         public const string TemporaryPrefix = @"/home/pi/Debug/temp";
@@ -162,7 +160,7 @@ namespace Rpi
             if (m_orders.Count > 0 && m_orders[0].Prog != null)
             {
                 m_orders[0].Written =
-#if WINDOWS
+#if DEBUG
                 WriteToDriveWindows();
 #else
                 WriteToDriveLinux();
@@ -183,7 +181,7 @@ namespace Rpi
                             {
                                 byte[] data = m_orders[0].Prog;
                                 fs.Write(data, 0, data.Length);
-                                Logger.WriteLine(this, "Written the file.");
+                                Logger.WriteLine(this, "Файл записан.");
                             }
                         }
                         return true;
@@ -195,7 +193,7 @@ namespace Rpi
                 else
                     Logger.WriteLine(
                         this,
-                        "{0}, is not an USB stick.", // "{0}, type::{1} is not an USB stick.",
+                        "{0}, не является USB-устройством.", // "{0}, type::{1} is not an USB stick.",
                         drive.RootDirectory.FullName/*,
                         drive.DriveType.Description()*/
                     );
@@ -218,7 +216,7 @@ namespace Rpi
                         {
                             byte[] data = m_orders[0].Prog;
                             fs.Write(data, 0, data.Length);
-                            Logger.WriteLine(this, "Written the file.");
+                            Logger.WriteLine(this, "Файл записан.");
                         }
                     }
                     return true;
@@ -230,7 +228,7 @@ namespace Rpi
             else
                 Logger.WriteLine(
                     this,
-                        "{0}, is not an USB stick.", // "{0}, type::{1} is not an USB stick.",
+                        "{0}, не является USB-устройством.", // "{0}, type::{1} is not an USB stick.",
                     drive.RootDirectory.FullName/*,
                     drive.DriveType.Description()*/
                 );

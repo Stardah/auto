@@ -66,10 +66,12 @@
             // nextLabel
             // 
             this.nextLabel.AutoSize = true;
+            this.nextLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nextLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nextLabel.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.nextLabel.Location = new System.Drawing.Point(3, 200);
+            this.nextLabel.Location = new System.Drawing.Point(3, 201);
             this.nextLabel.Name = "nextLabel";
-            this.nextLabel.Size = new System.Drawing.Size(289, 32);
+            this.nextLabel.Size = new System.Drawing.Size(326, 135);
             this.nextLabel.TabIndex = 2;
             this.nextLabel.Text = "Следующий заказ: ";
             // 
@@ -87,20 +89,24 @@
             // currentLabel
             // 
             this.currentLabel.AutoSize = true;
+            this.currentLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.currentLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.currentLabel.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.currentLabel.Location = new System.Drawing.Point(3, 64);
+            this.currentLabel.Location = new System.Drawing.Point(3, 66);
             this.currentLabel.Name = "currentLabel";
-            this.currentLabel.Size = new System.Drawing.Size(236, 32);
+            this.currentLabel.Size = new System.Drawing.Size(326, 135);
             this.currentLabel.TabIndex = 1;
             this.currentLabel.Text = "Текущий заказ:";
             // 
             // writtenLabel
             // 
             this.writtenLabel.AutoSize = true;
+            this.writtenLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.writtenLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.writtenLabel.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.writtenLabel.Location = new System.Drawing.Point(3, 32);
             this.writtenLabel.Name = "writtenLabel";
-            this.writtenLabel.Size = new System.Drawing.Size(229, 32);
+            this.writtenLabel.Size = new System.Drawing.Size(326, 34);
             this.writtenLabel.TabIndex = 3;
             this.writtenLabel.Text = "УП отсутствуют";
             // 
