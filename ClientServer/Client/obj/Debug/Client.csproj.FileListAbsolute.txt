@@ -1,0 +1,13 @@
+c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\obj\Debug\Rpi.Form1.resources
+c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\obj\Debug\Rpi.Properties.Resources.resources
+c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\obj\Debug\Client.csproj.GenerateResource.Cache
+c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\bin\Debug\Client.exe.config
+c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\bin\Debug\Client.exe
+c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\bin\Debug\Client.pdb
+c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\bin\Debug\Server.exe
+c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\bin\Debug\Server.pdb
+c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\obj\Debug\Client.exe
+c:\Users\Максим\documents\visual studio 2015\Projects\Rpi\Client\obj\Debug\Client.pdb
+C:\Users\Максим\Documents\Visual Studio 2015\Projects\Rpi\Client\bin\Debug\Server.exe.config
+C:\Users\Максим\Documents\Visual Studio 2015\Projects\Rpi\Client\bin\Debug\ICSharpCode.SharpZipLib.dll
