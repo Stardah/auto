@@ -129,6 +129,10 @@
     <None Include="Resources\refresh.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ClientServer\Client\Client.csproj">
+      <Project>{9a981e18-7815-4fec-b417-a2a187cfac36}</Project>
+      <Name>Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ClientServer\Rpi\Server.csproj">
       <Project>{734cba62-5e87-4d34-9487-24dbce52b611}</Project>
       <Name>Server</Name>
