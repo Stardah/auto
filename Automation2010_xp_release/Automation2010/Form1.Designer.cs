@@ -103,7 +103,7 @@
             // 
             // btn_connect
             // 
-            this.btn_connect.BackgroundImage = global::Automation2010.Properties.Resources.refresh;
+            this.btn_connect.BackgroundImage = global::Rpi.Properties.Resources.refresh;
             this.btn_connect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_connect.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_connect.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));

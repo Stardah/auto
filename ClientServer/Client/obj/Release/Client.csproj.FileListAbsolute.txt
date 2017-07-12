@@ -1,0 +1,12 @@
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Client\bin\Release\Client.exe.config
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Client\bin\Release\Client.exe
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Client\bin\Release\Client.pdb
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Client\bin\Release\ICSharpCode.SharpZipLib.dll
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Client\bin\Release\Server.exe
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Client\bin\Release\Server.pdb
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Client\obj\Release\Client.csprojResolveAssemblyReference.cache
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Client\obj\Release\Rpi.Form1.resources
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Client\obj\Release\Rpi.Properties.Resources.resources
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Client\obj\Release\Client.csproj.GenerateResource.Cache
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Client\obj\Release\Client.exe
+C:\Users\Adrax\Source\Repos\auto\ClientServer\Client\obj\Release\Client.pdb
