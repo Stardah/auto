@@ -8,6 +8,8 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -40,6 +42,8 @@ namespace Rpi
         {
             m_client = new Client(DefaultClientPort);
             m_client.Start();
+
+            Text = GetLocalIpAddress();
 
             Thread thread = new Thread(() =>
             {
@@ -99,14 +103,17 @@ namespace Rpi
             if (m_orders.Count == 0)
             {
                 writtenLabel.Text = "УП отсутствуют";
+                writtenLabel.ForeColor = Color.Black;
             }
             else if (m_orders[0].Written)
             {
                 writtenLabel.Text = "Программа записана";
+                writtenLabel.ForeColor = Color.Blue;
             }
             else
             {
                 writtenLabel.Text = "Ожидание USB-носителя...";
+                writtenLabel.ForeColor = Color.Orange;
             }
 
             currentLabel.Text =
@@ -212,6 +219,17 @@ namespace Rpi
                 );
 
             return false;
+        }
+
+        private string GetLocalIpAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+
+            foreach (var ip in host.AddressList)
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    return ip.ToString();
+
+            throw new ApplicationException("Не найден локальный IP-адрес.");
         }
 
         private void ProcessData(byte[] tarGz)
