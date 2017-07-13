@@ -3,3 +3,4 @@ base = ClientServer/Client/bin/Release/
 
 Client.exe
 ICSharpCode.SharpZipLib.dll
+System.Net.Http.dll
