@@ -16,3 +16,13 @@ C:\Users\Adrax\Source\Repos\auto\ClientServer\Rpi\obj\Debug\Rpi.Properties.Resou
 C:\Users\Adrax\Source\Repos\auto\ClientServer\Rpi\obj\Debug\Server.csproj.GenerateResource.Cache
 C:\Users\Adrax\Source\Repos\auto\ClientServer\Rpi\obj\Debug\Server.exe
 C:\Users\Adrax\Source\Repos\auto\ClientServer\Rpi\obj\Debug\Server.pdb
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Rpi\bin\Debug\Server.exe.config
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Rpi\bin\Debug\Server.exe
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Rpi\bin\Debug\Server.pdb
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Rpi\bin\Debug\System.Net.Http.dll
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Rpi\obj\Debug\Server.csprojResolveAssemblyReference.cache
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Rpi\obj\Debug\Rpi.MainForm.resources
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Rpi\obj\Debug\Rpi.Properties.Resources.resources
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Rpi\obj\Debug\Server.csproj.GenerateResource.Cache
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Rpi\obj\Debug\Server.exe
+C:\Users\Максим\Documents\Visual Studio 2017\Projects\Auto\ClientServer\Rpi\obj\Debug\Server.pdb
