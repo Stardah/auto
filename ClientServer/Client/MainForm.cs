@@ -24,9 +24,11 @@ namespace Rpi
 #else
         public const string TemporaryPrefix = @"/home/pi/Debug/temp";
 #endif
+        private const string GitHubBaseUrl = @"https://raw.githubusercontent/Stardah/auto/master/";
 
         private Client m_client;
         private bool m_listen = true;
+        private bool m_finish = false;
         private int unique = 0;
         private List<Order> m_orders = new List<Order>();
         private HashSet<int> m_pulled = new HashSet<int>();
@@ -62,6 +64,22 @@ namespace Rpi
                     if (!m_client.Connected)
                     {
                         Thread.Sleep(Cooldown);
+                        continue;
+                    }
+
+                    if (m_finish)
+                    {
+                        var reply = m_client.SendString(MessageType.Finish, true, m_orders[0].Id);
+
+                        if (Message.GetMessageType(reply) == MessageType.Ack)
+                        {
+                            m_pulled.Remove(m_orders[0].Id);
+                            m_orders.RemoveAt(0);
+                        }
+
+                        m_finish = false;
+                        Thread.Sleep(Cooldown);
+
                         continue;
                     }
 
@@ -145,13 +163,11 @@ namespace Rpi
         {
             if (e.KeyChar == '#' && m_orders.Count > 0)
             {
-                var reply = m_client.SendString(MessageType.Finish, true, m_orders[0].Id);
-
-                if (Message.GetMessageType(reply) == MessageType.Ack)
-                {
-                    m_pulled.Remove(m_orders[0].Id);
-                    m_orders.RemoveAt(0);
-                }
+                m_finish = true;
+            }
+            else if (e.KeyChar == '*')
+            {
+                UpdateProgram();
             }
         }
 
@@ -300,6 +316,74 @@ namespace Rpi
                 }
                 archive.Close();
                 Logger.WriteLine(this, "Получен .TAR от сервера.");
+            }
+        }
+
+        private void UpdateProgram()
+        {
+            const string LocalVersionFile = "version.txt";
+            const string RemoteVersionFile = "remote-version.txt";
+
+            try
+            {
+                using (var wc = new WebClient())
+                {
+                    if (File.Exists(RemoteVersionFile))
+                        File.Delete(RemoteVersionFile);
+
+                    wc.DownloadFile(GitHubBaseUrl + LocalVersionFile, RemoteVersionFile);
+
+                    using (var sr = new StreamReader(RemoteVersionFile))
+                    {
+                        int version = -1;
+                        string downloadBase = null;
+                        string line;
+                        var filesToDownload = new List<string>();
+
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            line = line.Trim();
+
+                            if (line.FirstOrDefault() != '#')
+                            {
+                                var tokens = (
+                                    from v
+                                    in line.Split('=')
+                                    where v.Length != 0
+                                    select v.Trim().ToLower()
+                                    ).ToArray();
+
+                                if (tokens.Length == 1)
+                                {
+                                    filesToDownload.Add(tokens[0]);
+                                }
+                                else if (tokens.Length == 2)
+                                {
+                                    switch (tokens[0])
+                                    {
+                                        case "version":
+                                            version = int.Parse(tokens[1]);
+                                            break;
+
+                                        case "base":
+                                            downloadBase = tokens[1];
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    throw new FormatException("Неверный формат файла настроек.");
+                                }
+                            }
+                        } // while ((line = sr.ReadLine()) != null)
+
+
+                    }
+                }
+            }
+            catch (WebException)
+            {
+                Logger.WriteLine(this, "Не удалось соединиться с сервером");
             }
         }
     }
