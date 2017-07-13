@@ -1,5 +1,0 @@
-version = 1
-base = ClientServer/Client/bin/Release/
-
-Client.exe
-ICSharpCode.SharpZipLib.dll
