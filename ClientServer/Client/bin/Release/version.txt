@@ -1,7 +1,5 @@
 version = 1
 base = ClientServer/Client/bin/Release/
 
-Server.exe
 Client.exe
 ICSharpCode.SharpZipLib.dll
-System.Net.Http.dll

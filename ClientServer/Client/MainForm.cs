@@ -24,7 +24,6 @@ namespace Rpi
 #else
         public const string TemporaryPrefix = @"/home/pi/Debug/temp";
 #endif
-        private const string GitHubBaseUrl = @"https://raw.githubusercontent/Stardah/auto/master/";
 
         private Client m_client;
         private bool m_listen = true;
@@ -321,19 +320,22 @@ namespace Rpi
 
         private void UpdateProgram()
         {
-            const string LocalVersionFile = "version.txt";
-            const string RemoteVersionFile = "remote-version.txt";
+            const string GitHubBaseUrl = @"https://raw.githubusercontent.com/SitadziMado/auto/master/";
+            const string VersionFile = @"version.txt";
+            const string RemoteDir = @"update/";
 
             try
             {
                 using (var wc = new WebClient())
                 {
-                    if (File.Exists(RemoteVersionFile))
-                        File.Delete(RemoteVersionFile);
+                    Directory.CreateDirectory(RemoteDir);
 
-                    wc.DownloadFile(GitHubBaseUrl + LocalVersionFile, RemoteVersionFile);
+                    if (File.Exists(RemoteDir + VersionFile))
+                        File.Delete(RemoteDir + VersionFile);
 
-                    using (var sr = new StreamReader(RemoteVersionFile))
+                    wc.DownloadFile(GitHubBaseUrl + VersionFile, RemoteDir + VersionFile);
+
+                    using (var sr = new StreamReader(RemoteDir + VersionFile))
                     {
                         int version = -1;
                         string downloadBase = null;
@@ -350,8 +352,8 @@ namespace Rpi
                                     from v
                                     in line.Split('=')
                                     where v.Length != 0
-                                    select v.Trim().ToLower()
-                                    ).ToArray();
+                                    select v.Trim()
+                                ).ToArray();
 
                                 if (tokens.Length == 1)
                                 {
@@ -359,7 +361,7 @@ namespace Rpi
                                 }
                                 else if (tokens.Length == 2)
                                 {
-                                    switch (tokens[0])
+                                    switch (tokens[0].ToLower())
                                     {
                                         case "version":
                                             version = int.Parse(tokens[1]);
@@ -372,16 +374,46 @@ namespace Rpi
                                 }
                                 else
                                 {
-                                    throw new FormatException("Неверный формат файла настроек.");
+                                    // throw new FormatException("Неверный формат файла настроек.");
                                 }
                             }
                         } // while ((line = sr.ReadLine()) != null)
 
+                        int currentVersion = -1;
 
+                        using (var curSr = new StreamReader(VersionFile))
+                        {
+                            var tokens = (
+                                from v
+                                in curSr.ReadLine().Split('=')
+                                where v.Length != 0
+                                select v.Trim().ToLower()
+                            ).ToArray();
+
+                            currentVersion = int.Parse(tokens[1]);
+                        }
+
+                        if (version != -1 && downloadBase != null && version != currentVersion)
+                        {
+                            downloadBase = GitHubBaseUrl + downloadBase;
+
+                            foreach (var v in filesToDownload)
+                                wc.DownloadFile(downloadBase + v, RemoteDir + v);
+                        }
+                        else if (version == currentVersion)
+                        {
+                            // Версии одинаковы.
+                        }
+                        else
+                        {
+                            throw new FormatException("Неверный формат файла настроек.");
+                        }
                     }
                 }
+
+                // Закрыть текущий инстанс, открыть лоадер.
             }
-            catch (WebException)
+            catch (WebException e)
             {
                 Logger.WriteLine(this, "Не удалось соединиться с сервером");
             }
